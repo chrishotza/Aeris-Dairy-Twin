@@ -24,6 +24,7 @@ test = [
 
 [project.scripts]
 aeris-sim = "aeris.cli:main"
+aeris-benchmark = "aeris.benchmark.cli:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
