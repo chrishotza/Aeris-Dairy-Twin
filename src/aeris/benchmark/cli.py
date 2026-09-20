@@ -5,6 +5,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import pandas as pd
+
 from .channels import diagnose_channels
 from .cvb import project_cvb_behavior_table
 from .io import read_behavior_table, write_projection
