@@ -13,7 +13,8 @@ authors = [
   { name = "Christian Marcelo Mendoza" }
 ]
 dependencies = [
-  "numpy>=1.26"
+  "numpy>=1.26",
+  "pandas>=2.0"
 ]
 
 [project.optional-dependencies]
