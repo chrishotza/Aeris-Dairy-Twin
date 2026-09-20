@@ -1,0 +1,89 @@
+# AERIS — Open Multimodal State Engine for Dairy Welfare Monitoring
+
+AERIS is an open research implementation of a multimodal dairy-welfare state engine reconstructed from the AERIS/InnoCrowd_DairyTwin research corpus.
+
+The system is designed to transform noisy welfare-related signals into interpretable states and escalation signals at three levels:
+
+- animal
+- pen / group
+- production unit / farm
+
+## Core architecture
+
+AERIS is organized around five documented layers:
+
+1. **Structural validity** — separates noise from structurally meaningful deterioration.
+2. **Severity** — estimates the magnitude of deterioration from changes in activity, rumination, locomotion and heat.
+3. **Regime classification** — maps the state to stable, transition or collapse-risk regimes.
+4. **Group burden** — aggregates animal deterioration into group-level operational load.
+5. **Unit burden** — aggregates group deterioration into production-unit operational load.
+
+The intended operational presentation uses:
+
+- GREEN / stable
+- YELLOW / transition
+- RED / collapse-risk
+
+## Evidence currently represented in the corpus
+
+The source corpus documents:
+
+- synthetic validation across animal, group and unit levels;
+- early-warning and alert-quality experiments;
+- a multimodal simulation-backed integrated champion;
+- benchmark-informed visual work using real-world cattle video/annotation data;
+- challenge-response and submission evidence packaging;
+- pilot and deployment plans.
+
+The current integrated champion is documented as `challenge_ventilation_refinement_v3`.
+
+Documented champion metrics include:
+
+| Metric | Result |
+|---|---:|
+| Precision | 0.6998 |
+| Recall | 0.8862 |
+| Specificity | 0.7834 |
+| Accuracy | 0.8207 |
+| Stable-baseline concern rate | 0.0107 |
+| Stable-baseline specificity | 0.9893 |
+
+Scenario-family recall documented in the corpus:
+
+| Scenario | Recall |
+|---|---:|
+| Ventilation | 0.9779 |
+| Heat stress | 0.9797 |
+| Lameness / locomotion | 0.9749 |
+| Feed disruption | 0.9350 |
+| Water stress | 0.9543 |
+
+## Validation status
+
+This repository distinguishes reconstructed/open research material from field deployment claims.
+
+The integrated AERIS proof described in the corpus is **simulation-backed**. External integrated field validation, live streaming, production alert routing and broader farm deployment remain future validation work.
+
+## Repository status
+
+This repository is being reconstructed from the original AERIS corpus. Early commits intentionally prioritize:
+
+- transparent architecture;
+- reproducible core mathematics;
+- documented validation results;
+- synthetic/research-only examples;
+- clean separation of third-party data from original project code.
+
+## Data and third-party assets
+
+The original corpus contains third-party datasets, large image collections, archives and generated artifacts. They are **not automatically redistributed here**.
+
+See `docs/datasets.md` before adding any external dataset.
+
+## Citation
+
+See `CITATION.cff`.
+
+## License
+
+Original code in this repository is released under the 0BSD license. Third-party datasets and assets remain subject to their original terms.
