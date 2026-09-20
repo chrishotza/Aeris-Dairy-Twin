@@ -100,6 +100,23 @@ Important imported families include:
 
 See `docs/experiment_catalog.md` and `docs/reconstruction_status.md`.
 
+## Benchmark bridge
+
+The clean benchmark layer now exposes:
+
+- CVB behavior-table to AERIS projection;
+- channel-head diagnostics against a stable baseline;
+- portable raw-media manifests;
+- benchmark I/O helpers;
+- a command-line benchmark adapter.
+
+Examples:
+
+    aeris-benchmark cvb path/to/cvb_behavior_table.csv --output results/cvb
+    aeris-benchmark channels path/to/animal_states.csv --output results/channels
+
+The repository does not redistribute third-party raw datasets. Dataset names and acquisition targets are documented separately.
+
 ## Validation status
 
 This repository distinguishes reconstructed/open research material from field deployment claims.
