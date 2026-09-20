@@ -100,6 +100,17 @@ Important imported families include:
 
 See `docs/experiment_catalog.md` and `docs/reconstruction_status.md`.
 
+## Core operational logic
+
+Beyond the state score itself, AERIS now exposes source-defined operational logic for:
+
+- explicit GREEN/YELLOW/RED state transitions;
+- probable-cause hypotheses;
+- signal-family interpretation;
+- intervention plans for stable, transition, collapse-risk, recovery and invalid/hold states.
+
+These APIs are reconstructed directly from the architecture notes in the source corpus. They are explicit research rules, not hidden business logic.
+
 ## Benchmark bridge
 
 The clean benchmark layer now exposes:
