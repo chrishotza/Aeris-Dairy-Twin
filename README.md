@@ -136,13 +136,16 @@ The integrated AERIS proof described in the corpus is **simulation-backed**. Ext
 
 ## Repository status
 
-This repository is being reconstructed from the original AERIS corpus. Early commits intentionally prioritize:
+The repository is now a **research release candidate** rather than an early reconstruction.
 
-- transparent architecture;
-- reproducible core mathematics;
-- documented validation results;
-- synthetic/research-only examples;
-- clean separation of third-party data from original project code.
+The main remaining release work is reproducibility packaging:
+
+- deterministic public synthetic fixtures;
+- a clean configurable champion-refinement experiment;
+- result manifests/checksums;
+- a reproducibility report tying configuration, inputs, seed, run, metrics and artifacts together.
+
+See `docs/release_readiness.md` for the release gates.
 
 ## Data and third-party assets
 
