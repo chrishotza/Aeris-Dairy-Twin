@@ -58,6 +58,48 @@ Scenario-family recall documented in the corpus:
 | Feed disruption | 0.9350 |
 | Water stress | 0.9543 |
 
+
+## Quickstart
+
+Install the package and test dependencies:
+
+```bash
+python -m pip install -e ".[test]"
+pytest -q
+```
+
+Run the minimal state-estimation example:
+
+```bash
+python examples/quickstart.py
+```
+
+Run the compact synthetic validation:
+
+```bash
+python -m experiments.synthetic_validation
+```
+
+## Historical research code
+
+Selected historical scripts from the source corpus are preserved under
+`experiments/historical/` with their original logic and filenames.
+
+These are provenance artifacts first. They depend on the original research
+directory structure and generated datasets, so they are not represented as
+drop-in production modules yet.
+
+Important imported families include:
+
+- integrated multimodal simulation;
+- ventilation refinement V3;
+- CVB parameter sweep;
+- real-data loading and CVB-to-AERIS projection;
+- animal, group and unit alert pipelines;
+- structural-validity, group-emergence, lead-time and alert-quality validation.
+
+See `docs/experiment_catalog.md` and `docs/reconstruction_status.md`.
+
 ## Validation status
 
 This repository distinguishes reconstructed/open research material from field deployment claims.
