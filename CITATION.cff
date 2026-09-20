@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "AERIS — Open Multimodal State Engine for Dairy Welfare Monitoring"
+type: software
+authors:
+  - family-names: Mendoza
+    given-names: Christian Marcelo
+    affiliation: "Independent Researcher"
+date-released: 2026-09-20
+repository-code: "https://github.com/chrishotza/Aeris-Dairy-Twin"
+abstract: "Open research implementation of a multimodal dairy-welfare state engine with structural validity, multiregime classification, hierarchical aggregation, simulation, validation and alert logic."
+keywords:
+  - dairy welfare
+  - animal welfare
+  - digital twin
+  - multimodal monitoring
+  - early warning
+  - state estimation
+license: "0BSD"
