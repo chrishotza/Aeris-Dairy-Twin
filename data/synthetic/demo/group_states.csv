@@ -1,0 +1,13 @@
+run_id,scenario,hour,unit_id,group_id,group_score,group_regime,group_severity,animals_total,animals_red,animals_yellow,animals_green,group_action
+0,demo_escalation_recovery,0,Unit_1,Unit_1_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,0,Unit_2,Unit_2_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,1,Unit_1,Unit_1_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,1,Unit_2,Unit_2_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,2,Unit_1,Unit_1_Group_1,0.55,transition,YELLOW,2,0,2,0,inspect_group_context
+0,demo_escalation_recovery,2,Unit_2,Unit_2_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,3,Unit_1,Unit_1_Group_1,0.8,collapse-risk,RED,2,2,0,0,activate_group_intervention
+0,demo_escalation_recovery,3,Unit_2,Unit_2_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,4,Unit_1,Unit_1_Group_1,0.55,transition,YELLOW,2,0,2,0,inspect_group_context
+0,demo_escalation_recovery,4,Unit_2,Unit_2_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,5,Unit_1,Unit_1_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring
+0,demo_escalation_recovery,5,Unit_2,Unit_2_Group_1,0.25,stable,GREEN,2,0,0,2,standard_monitoring

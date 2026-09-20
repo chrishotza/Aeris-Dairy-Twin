@@ -1,84 +1,62 @@
 # AERIS release readiness
 
-## Current status
+## Technical release status
 
-AERIS is now at a **research release-candidate** stage.
+The repository has crossed the main **technical research-release gates**.
 
-The repository has a clean public implementation, documented scope and non-claims, explicit operational logic, a benchmark bridge, preserved historical research scripts, and a passing GitHub Actions test run.
+Closed technical gates:
 
-This status is different from field validation or production readiness.
+- clean \`src/aeris/\` implementation;
+- explicit state transitions and operational logic;
+- benchmark bridge and channel diagnostics;
+- preservation of the 66 historical research scripts;
+- deterministic public synthetic fixture;
+- reproducibility manifest and checksum workflow;
+- clean configurable champion-refinement experiment;
+- reproducibility documentation;
+- passing GitHub Actions test run on the current release work.
 
-## Green — already in place
+## Current research evidence boundary
 
-- Clean `src/aeris/` research API for state estimation, hierarchy, alerts, simulation and benchmark adapters.
-- Explicit GREEN/YELLOW/RED transitions.
-- Explicit probable-cause hypotheses and intervention plans.
-- CVB projection and channel diagnostics.
-- 66 historical research scripts preserved under `experiments/historical/`.
-- Synthetic validation metrics documented with provenance.
-- Repository boundary separating original code from third-party raw data.
-- Public scope and non-claims documentation.
-- GitHub Actions test workflow passing on the current main commit.
+The integrated champion and validation results documented in this repository
+remain simulation-backed and source-corpus derived.
 
-## Yellow — final engineering work before a polished public research release
+This release does not claim:
 
-### 1. Deterministic public demonstration
+- integrated external field validation;
+- production deployment;
+- live streaming;
+- production alert routing;
+- universal farm generalization.
 
-Add a small, license-safe synthetic fixture and checked-in example outputs covering:
+The pilot metrics placeholder in the source corpus is not presented as an
+executed field result.
 
-- animal trajectory;
-- group trajectory;
-- unit trajectory;
-- alert feed;
-- recommended action;
-- one reproducibility manifest.
+## External release gate
 
-The fixture should be generated from scratch and clearly labeled synthetic.
+The remaining non-technical gate is the legal/contractual boundary around
+challenge-derived work.
 
-### 2. Champion reproducibility
+The source corpus contains an InoCrowd ownership/confidentiality agreement
+with a 90-day exclusivity period, an option mechanism and continuing
+confidentiality obligations.
 
-Convert the historical ventilation-refinement/champion search into a clean configurable experiment that accepts explicit input paths and writes:
+Before a new external release, publication, patent filing, or disclosure that
+depends specifically on challenge work product, verify:
 
-- configuration;
-- seed;
-- parameter leaderboard;
-- best parameters;
-- metrics;
-- scenario breakdown;
-- output checksums.
+1. the applicable challenge deadline;
+2. whether the exclusivity period has ended;
+3. whether any option was exercised;
+4. which materials are covered;
+5. whether the intended public disclosure is permitted.
 
-The historical scripts remain provenance; the clean experiment should be the reproducible public entry point.
+The repository intentionally excludes the agreement itself, partner
+communications and third-party raw datasets.
 
-### 3. Reproducibility report
+## Next scientific milestone
 
-Add one report that ties:
+The next major evidence milestone is an executed external pilot using real
+farm data and a documented validation protocol.
 
-`configuration -> source commit -> input identity -> seed -> run -> metrics -> artifacts`
-
-together, so a reader can reconstruct exactly what produced a reported result.
-
-### 4. Evidence packaging
-
-Make the public repository self-contained enough that a reviewer does not have to reconstruct the intended dashboard, alert examples, state trajectory and simulated data format from prose alone.
-
-## Red / external gate
-
-### Challenge-derived public release boundary
-
-The corpus contains an InoCrowd Ownership of R&D Results agreement. Its text states a 90-day Exclusivity Period from the challenge deadline, an exclusive option during that period, restrictions on granting/disclosing/transferring the proposed solution or work product during the exclusivity period, and continuing confidentiality obligations.
-
-Before making a new external release, submission, patent filing, or publication that incorporates challenge-specific work product, verify the applicable challenge deadline, whether the exclusivity period has ended, whether an option was exercised, and which material is actually covered.
-
-This repository already keeps the agreement itself and third-party raw data out of the public tree.
-
-## Scientific evidence boundary
-
-The integrated AERIS proof remains simulation-backed. The repository must not present the pilot placeholder metrics as executed field results.
-
-External integrated field validation, live streaming, production alert routing and broad farm deployment remain future work.
-
-## Release gate
-
-A polished public research release can be considered ready when the Yellow items are closed and the Challenge-derived public-release boundary has been checked.
-
-Field validation is a separate evidence milestone; it is not silently treated as complete by releasing the research code.
+That is a scientific/field-validation milestone, not a missing repository
+engineering feature.

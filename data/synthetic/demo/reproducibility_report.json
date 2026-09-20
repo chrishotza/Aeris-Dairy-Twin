@@ -1,0 +1,17 @@
+{
+  "expected_unit1_path": [
+    "GREEN",
+    "GREEN",
+    "YELLOW",
+    "RED",
+    "YELLOW",
+    "GREEN"
+  ],
+  "files": [
+    "alerts.csv",
+    "animal_states.csv",
+    "group_states.csv",
+    "unit_states.csv"
+  ],
+  "fixture": "AERIS deterministic demo"
+}

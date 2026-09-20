@@ -35,7 +35,7 @@ The source corpus documents:
 - challenge-response and submission evidence packaging;
 - pilot and deployment plans.
 
-The current integrated champion is documented as `challenge_ventilation_refinement_v3`.
+The current integrated champion is documented as \`challenge_ventilation_refinement_v3\`.
 
 Documented champion metrics include:
 
@@ -58,47 +58,59 @@ Scenario-family recall documented in the corpus:
 | Feed disruption | 0.9350 |
 | Water stress | 0.9543 |
 
-
 ## Quickstart
 
 Install the package and test dependencies:
 
-```bash
+\`\`\`bash
 python -m pip install -e ".[test]"
-pytest -q
-```
+python -m pytest -q
+\`\`\`
 
 Run the minimal state-estimation example:
 
-```bash
+\`\`\`bash
 python examples/quickstart.py
-```
+\`\`\`
 
 Run the compact synthetic validation:
 
-```bash
+\`\`\`bash
 python -m experiments.synthetic_validation
-```
+\`\`\`
+
+## Public reproducibility package
+
+A deterministic synthetic fixture is now checked in under
+\`data/synthetic/demo/\`.
+
+Regenerate and verify it with:
+
+\`\`\`bash
+python experiments/reproducibility_demo.py --output data/synthetic/demo
+\`\`\`
+
+A clean configurable reconstruction of the historical champion-search
+structure is available at:
+
+\`\`\`bash
+python experiments/champion_refinement.py \
+  --input results/repro_sim/animal_states.csv \
+  --output results/champion_refinement
+\`\`\`
+
+See \`docs/reproducibility.md\`.
 
 ## Historical research code
 
 Selected historical scripts from the source corpus are preserved under
-`experiments/historical/` with their original logic and filenames.
+\`experiments/historical/\` with their original logic and filenames.
 
 These are provenance artifacts first. They depend on the original research
 directory structure and generated datasets, so they are not represented as
 drop-in production modules yet.
 
-Important imported families include:
-
-- integrated multimodal simulation;
-- ventilation refinement V3;
-- CVB parameter sweep;
-- real-data loading and CVB-to-AERIS projection;
-- animal, group and unit alert pipelines;
-- structural-validity, group-emergence, lead-time and alert-quality validation.
-
-See `docs/experiment_catalog.md` and `docs/reconstruction_status.md`.
+See \`docs/experiment_catalog.md\` and \`docs/reconstruction_status.md\`.
 
 ## Core operational logic
 
@@ -113,7 +125,7 @@ These APIs are reconstructed directly from the architecture notes in the source 
 
 ## Benchmark bridge
 
-The clean benchmark layer now exposes:
+The clean benchmark layer exposes:
 
 - CVB behavior-table to AERIS projection;
 - channel-head diagnostics against a stable baseline;
@@ -121,41 +133,35 @@ The clean benchmark layer now exposes:
 - benchmark I/O helpers;
 - a command-line benchmark adapter.
 
-Examples:
-
-    aeris-benchmark cvb path/to/cvb_behavior_table.csv --output results/cvb
-    aeris-benchmark channels path/to/animal_states.csv --output results/channels
-
-The repository does not redistribute third-party raw datasets. Dataset names and acquisition targets are documented separately.
+The repository does not redistribute third-party raw datasets.
 
 ## Validation status
-
-This repository distinguishes reconstructed/open research material from field deployment claims.
 
 The integrated AERIS proof described in the corpus is **simulation-backed**. External integrated field validation, live streaming, production alert routing and broader farm deployment remain future validation work.
 
 ## Repository status
 
-The repository is now a **research release candidate** rather than an early reconstruction.
+The repository is now a **technical research release candidate**.
 
-The main remaining release work is reproducibility packaging:
+The code, historical provenance, deterministic synthetic demo, champion-search reconstruction and reproducibility documentation are in place.
 
-- deterministic public synthetic fixtures;
-- a clean configurable champion-refinement experiment;
-- result manifests/checksums;
-- a reproducibility report tying configuration, inputs, seed, run, metrics and artifacts together.
+The remaining release gate is external to the core engineering work: verify any
+challenge/IP restrictions before public disclosures that depend specifically
+on challenge-derived work product.
 
-See `docs/release_readiness.md` for the release gates.
+See \`docs/release_readiness.md\`.
 
 ## Data and third-party assets
 
-The original corpus contains third-party datasets, large image collections, archives and generated artifacts. They are **not automatically redistributed here**.
+The original corpus contains third-party datasets, large image collections,
+archives and generated artifacts. They are **not automatically redistributed
+here**.
 
-See `docs/datasets.md` before adding any external dataset.
+See \`docs/datasets.md\` before adding any external dataset.
 
 ## Citation
 
-See `CITATION.cff`.
+See \`CITATION.cff\`.
 
 ## License
 

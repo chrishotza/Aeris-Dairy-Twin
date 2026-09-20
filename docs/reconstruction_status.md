@@ -1,67 +1,56 @@
 # AERIS reconstruction status
 
-This repository is being rebuilt from the 2026 AERIS corpus dump.
+This repository was rebuilt from the 2026 AERIS corpus dump.
 
 ## Corpus preservation
 
 The source corpus contains 66 Python research scripts under the 10_code research directory.
 
-All 66 historical Python scripts are now preserved under experiments/historical/.
+All 66 historical Python scripts are preserved under
+\`experiments/historical/\`.
 
-This includes simulation, sweeps, channel diagnostics, upstream/threshold searches, CVB extraction and projection, alert-feed construction/calibration, incident management, validation, comparison, evidence-pack and submission-pack builders.
+Historical scripts are provenance artifacts first. They depend on the original
+research directory structure and generated datasets, so they are not
+automatically treated as production-ready modules.
 
-Historical scripts are retained as provenance artifacts. They are not automatically treated as production-ready modules.
+## Reconstructed public implementation
 
-## Reconstructed
+The clean public implementation exposes:
 
-- package skeleton;
-- documented core state equations;
-- animal/group/unit burden logic;
-- clean multimodal simulation API;
-- alert-generation API;
-- compact synthetic validation logic;
-- documented validation metrics;
-- integrated champion metrics;
-- challenge-response map;
-- data/provenance policy;
-- scope and non-claims;
-- benchmark bridge for CVB behavior tables;
-- channel diagnostics;
-- portable data manifests;
-- historical experimental scripts with provenance.
+1. \`aeris.simulation.simulate(...)\`
+2. \`aeris.aggregation.aggregate_group(...)\`
+3. \`aeris.aggregation.aggregate_unit(...)\`
+4. \`aeris.alerts.build_alert_feed(...)\`
+5. \`aeris.simulation.evaluate.evaluate_units(...)\`
+6. \`aeris.benchmark.project_cvb_behavior_table(...)\`
+7. \`aeris.benchmark.diagnose_channels(...)\`
+8. \`aeris-sim\`
+9. \`aeris-benchmark\`
 
-## Current clean pipeline
+It also exposes explicit state transitions, probable-cause mapping, signal
+mapping and intervention logic.
 
-The public implementation now exposes:
+## Release-candidate additions
 
-1. aeris.simulation.simulate(...)
-2. aeris.aggregation.aggregate_group(...)
-3. aeris.aggregation.aggregate_unit(...)
-4. aeris.alerts.build_alert_feed(...)
-5. aeris.simulation.evaluate.evaluate_units(...)
-6. aeris.benchmark.project_cvb_behavior_table(...)
-7. aeris.benchmark.diagnose_channels(...)
-8. aeris-sim
-9. aeris-benchmark
+The technical reproducibility layer now includes:
 
-The clean implementation removes dependence on the original local filesystem layout.
+- \`experiments/reproducibility_demo.py\`;
+- \`data/synthetic/demo/\`;
+- \`experiments/champion_refinement.py\`;
+- \`docs/reproducibility.md\`;
+- deterministic tests for the public fixture and champion-search behavior.
 
-## Historical vs reconstructed
+The clean champion experiment is a public reconstruction of the historical
+search structure. It is intentionally smaller by default than the historical
+800 + 1600 evaluation schedule.
 
-Historical scripts remain under experiments/historical/.
+## Remaining boundaries
 
-The clean src/aeris/ implementation is the reproducible research API intended for future extension. Historical scripts preserve the original experimental procedures and filesystem-oriented workflows.
+The remaining open work is outside the basic repository engineering layer:
 
-## Remaining high-value reconstruction targets
+- challenge/IP disclosure verification;
+- executed external field validation;
+- live/production deployment evidence.
 
-1. Reconstruct the champion search/refinement loop as a configurable experiment.
-2. Reconstruct the CVB alert-feed/calibration chain as a clean benchmark module.
-3. Reconstruct full-pipeline and incident-management orchestration.
-4. Expose state transitions, probable-cause mapping and intervention logic as explicit APIs.
-5. Add deterministic result fixtures and result checksums.
-6. Build a small, license-safe demonstration dataset for the public repository.
-7. Add a reproducibility report that ties configuration -> run -> metrics -> artifacts together.
-
-## Evidence boundary
-
-The corpus contains synthetic validation, benchmark-derived intermediate evidence and pilot placeholders. The repository must not present pilot placeholders as executed field results. Real-world field validation, live streaming, production alert routing and wider deployment remain open work.
+These are not silently treated as complete by the presence of the release
+artifacts.

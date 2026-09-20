@@ -1,0 +1,26 @@
+{
+  "files": {
+    "alerts.csv": {
+      "bytes": 971,
+      "rows": 8,
+      "sha256": "d9bafa9a51211373fa82ffb06e45941b8e76180af0af94ad49d9bab64bacd0e1"
+    },
+    "animal_states.csv": {
+      "bytes": 4685,
+      "rows": 24,
+      "sha256": "65835896dddbf0b64d35999ef53e33f53c2739039f6ca69cfbc38c5fbc9177a4"
+    },
+    "group_states.csv": {
+      "bytes": 1336,
+      "rows": 12,
+      "sha256": "3ce6868943169f214ae33ff5165d17c866ef5c7473871fa2177cf5516ce5c914"
+    },
+    "unit_states.csv": {
+      "bytes": 1130,
+      "rows": 12,
+      "sha256": "76cf8d2574f346965021df28eaa25a708aaeb54ef3e6b3803986a62e807a8ee8"
+    }
+  },
+  "schema": "aeris.synthetic.reproducibility.v1",
+  "synthetic": true
+}

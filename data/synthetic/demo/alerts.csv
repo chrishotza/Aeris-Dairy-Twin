@@ -1,0 +1,9 @@
+alert_id,entity_level,entity_id,hour,severity,regime,recommended_action,run_id,scenario
+SIMALT_000001,animal,Unit_1_Group_1_Animal_01,2,YELLOW,transition,next_routine_inspection,0,demo_escalation_recovery
+SIMALT_000003,animal,Unit_1_Group_1_Animal_02,2,YELLOW,transition,next_routine_inspection,0,demo_escalation_recovery
+SIMALT_000005,group,Unit_1_Group_1,2,YELLOW,transition,inspect_group_context,0,demo_escalation_recovery
+SIMALT_000007,unit,Unit_1,2,YELLOW,transition,review_unit_context,0,demo_escalation_recovery
+SIMALT_000002,animal,Unit_1_Group_1_Animal_01,3,RED,collapse-risk,immediate_targeted_inspection,0,demo_escalation_recovery
+SIMALT_000004,animal,Unit_1_Group_1_Animal_02,3,RED,collapse-risk,immediate_targeted_inspection,0,demo_escalation_recovery
+SIMALT_000006,group,Unit_1_Group_1,3,RED,collapse-risk,activate_group_intervention,0,demo_escalation_recovery
+SIMALT_000008,unit,Unit_1,3,RED,collapse-risk,activate_unit_response,0,demo_escalation_recovery
