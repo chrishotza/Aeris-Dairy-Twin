@@ -7,12 +7,15 @@ This repository is being rebuilt from the 2026 AERIS corpus dump.
 - package skeleton;
 - documented core state equations;
 - animal/group/unit burden logic;
-- synthetic validation logic;
+- clean multimodal simulation API;
+- alert-generation API;
+- compact synthetic validation logic;
 - documented validation metrics;
 - integrated champion metrics;
 - challenge-response map;
 - data/provenance policy;
-- scope and non-claims.
+- scope and non-claims;
+- historical experimental scripts with provenance.
 
 ## Historical code inventory present in the source corpus
 
@@ -30,20 +33,30 @@ The source inventory identifies a substantial Python research stack under the 10
 - group and unit emergence validation;
 - evidence-pack builders.
 
-## Important distinction
+## Current clean pipeline
 
-The historical scripts were developed against a particular local directory structure and a large corpus of generated and external artifacts. They should not be copied into the public package unchanged until their dependencies, provenance and data assumptions have been made explicit.
+The public implementation now exposes:
 
-The public reconstruction therefore has two layers:
+1. aeris.simulation.simulate(...)
+2. aeris.aggregation.aggregate_group(...)
+3. aeris.aggregation.aggregate_unit(...)
+4. aeris.alerts.build_alert_feed(...)
+5. aeris.simulation.evaluate.evaluate_units(...)
+6. aeris-sim command-line execution
 
-1. AERIS Core — clean, inspectable research implementation.
-2. Historical Experiments — progressively ported experiment logic with provenance and reproducibility notes.
+The clean simulator preserves the documented animal → group → unit architecture and the historical multimodal signal families while removing dependence on the original local filesystem layout.
+
+## Historical vs reconstructed
+
+Historical scripts remain under experiments/historical/.
+
+They are provenance artifacts and preserve the original experimental logic. The clean src/aeris/ implementation is the reproducible research API intended for future extension.
 
 ## Current next reconstruction targets
 
-- port the integrated simulator into src/aeris/simulation/;
-- port alert generation into src/aeris/alerts/;
-- port group/unit aggregation into src/aeris/aggregation/;
-- create small deterministic synthetic fixtures;
-- add experiment configuration files;
-- reproduce the documented champion metrics without third-party raw datasets.
+- reproduce the integrated simulator outputs with committed deterministic fixtures;
+- port channel diagnostics into src/aeris/benchmark/;
+- port the CVB projection layer into a clean benchmark adapter;
+- add benchmark dataset manifests and provenance;
+- reconstruct the champion sweep as a configurable experiment;
+- add reproducibility reports and result checksums.
