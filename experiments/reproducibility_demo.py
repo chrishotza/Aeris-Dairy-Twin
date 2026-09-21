@@ -97,9 +97,9 @@ def build_demo_package() -> dict[str, pd.DataFrame]:
         }
     )
 
-    animal_alerts = build_alert_feed(animals, persistence=True)
-    group_alerts = build_alert_feed(groups, persistence=True)
-    unit_alerts = build_alert_feed(units, persistence=True)
+    animal_alerts = build_alert_feed(animals, persistence=False)
+    group_alerts = build_alert_feed(groups, persistence=False)
+    unit_alerts = build_alert_feed(units, persistence=False)
 
     alerts = pd.concat(
         [animal_alerts, group_alerts, unit_alerts],
