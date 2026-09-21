@@ -1,3 +1,7 @@
+import hashlib
+import json
+from pathlib import Path
+
 from experiments.reproducibility_demo import build_demo_package
 
 
@@ -24,3 +28,14 @@ def test_demo_fixture_shape_and_recovery_path():
     ]
 
     assert len(package["alerts"]) == 8
+
+
+def test_checked_in_demo_manifest_matches_csv_hashes():
+    root = Path(__file__).parents[1] / "data" / "synthetic" / "demo"
+    manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+
+    for name, metadata in manifest["files"].items():
+        path = root / name
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        assert digest == metadata["sha256"]
+        assert path.stat().st_size == metadata["bytes"]
