@@ -1,1 +1,23 @@
-The requested file reference is not currently visible. Use files.search or files.list to rediscover the file, then retry with a returned ref_id or file_id.
+from pathlib import Path
+
+root = Path(".")
+exp_dir = root / "11_real_data" / "cvb_data" / "exports"
+
+inp = exp_dir / "cvb_top20_clip_ids_only_v1.txt"
+out = exp_dir / "cvb_rclone_include_top20_v2.txt"
+
+clip_ids = [x.strip() for x in Path(inp).read_text(encoding="utf-8").splitlines() if x.strip()]
+
+lines = []
+for clip_id in clip_ids:
+    lines.append(f"+ **/{clip_id}/**")
+lines.append("- **")
+
+Path(out).write_text("\n".join(lines), encoding="utf-8")
+
+print("\n=== CVB RCLONE INCLUDE TOP20 V2 ===")
+for x in lines[:10]:
+    print(x)
+print("...")
+print(f"\nSaved: {out}")
+
