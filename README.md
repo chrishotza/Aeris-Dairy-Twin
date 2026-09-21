@@ -149,7 +149,7 @@ The remaining release gate is external to the core engineering work: verify any
 challenge/IP restrictions before public disclosures that depend specifically
 on challenge-derived work product.
 
-See \`docs/release_readiness.md\`.
+See \`docs/release_readiness.md\` and \`docs/release_audit.md\`.
 
 ## Data and third-party assets
 
