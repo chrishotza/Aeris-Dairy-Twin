@@ -38,3 +38,43 @@ def test_alert_feed_detects_escalation():
 
     alerts = build_alert_feed(states)
     assert alerts["severity"].tolist() == ["YELLOW", "RED"]
+
+
+def test_alert_feed_keeps_simulations_and_scenarios_independent():
+    # Identical entity IDs in independent scenarios must still raise alerts.
+    rows = [
+        {
+            "run_id": run_id,
+            "scenario": scenario,
+            "hour": 0,
+            "animal_id": "A1",
+            "animal_severity": "RED",
+            "animal_regime": "collapse-risk",
+            "animal_action": "on_site_inspection",
+        }
+        for run_id, scenario in [(0, "baseline"), (0, "heat"), (1, "baseline")]
+    ]
+    alerts = build_alert_feed(pd.DataFrame(rows))
+    assert len(alerts) == 3
+    assert set(zip(alerts["run_id"], alerts["scenario"])) == {
+        (0, "baseline"), (0, "heat"), (1, "baseline")
+    }
+
+
+def test_persistence_does_not_combine_short_runs_from_different_simulations():
+    rows = [
+        {
+            "run_id": run_id,
+            "scenario": "baseline",
+            "hour": 0,
+            "animal_id": "A1",
+            "animal_severity": "RED",
+            "animal_regime": "collapse-risk",
+            "animal_action": "on_site_inspection",
+        }
+        for run_id in (0, 1)
+    ]
+    alerts = build_alert_feed(
+        pd.DataFrame(rows), persistence=True, min_red_duration=2
+    )
+    assert alerts.empty
