@@ -78,9 +78,12 @@ def build_alert_feed(
         if not {entity_id, severity_col, regime_col, action_col}.issubset(states.columns):
             continue
 
-        subset = states.sort_values([entity_id, "hour"]).copy()
+        # Entity IDs can be reused between independent simulations. Persist and
+        # detect escalations only within the same run and scenario.
+        stream_keys = ["run_id", "scenario", entity_id]
+        subset = states.sort_values(stream_keys + ["hour"], kind="stable").copy()
 
-        for entity_value, group in subset.groupby(entity_id):
+        for (_, _, entity_value), group in subset.groupby(stream_keys, sort=False):
             sequence = group[severity_col].astype(str).tolist()
             if persistence:
                 sequence = apply_persistence(
@@ -123,7 +126,7 @@ def build_alert_feed(
         )
 
     result = result.sort_values(
-        ["run_id", "entity_level", "entity_id", "hour"]
+        ["run_id", "scenario", "entity_level", "entity_id", "hour"]
     ).reset_index(drop=True)
     result.insert(
         0,
