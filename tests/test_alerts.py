@@ -77,4 +77,7 @@ def test_persistence_does_not_combine_short_runs_from_different_simulations():
     alerts = build_alert_feed(
         pd.DataFrame(rows), persistence=True, min_red_duration=2
     )
-    assert alerts.empty
+    # A one-frame RED is downgraded to WATCH by the existing persistence
+    # contract; it must not be combined with the next simulation's RED.
+    assert alerts["severity"].tolist() == ["WATCH", "WATCH"]
+    assert set(alerts["run_id"]) == {0, 1}
