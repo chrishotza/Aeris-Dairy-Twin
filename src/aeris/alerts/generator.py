@@ -16,10 +16,13 @@ def apply_persistence(
 ) -> list[str]:
     """Suppress short-lived RED/YELLOW runs."""
 
-    if min_red_duration < 1 or min_yellow_duration < 1:
-        raise ValueError("durations must be >= 1")
+    if (type(min_red_duration) is not int or type(min_yellow_duration) is not int
+            or min_red_duration < 1 or min_yellow_duration < 1):
+        raise ValueError("durations must be positive integers")
 
     out = list(sequence)
+    if any(state not in RANK for state in out):
+        raise ValueError("unknown severity: expected GREEN, WATCH, YELLOW or RED")
     i = 0
 
     while i < len(out):
@@ -65,6 +68,15 @@ def build_alert_feed(
     missing = required - set(states.columns)
     if missing:
         raise ValueError(f"missing required columns: {sorted(missing)}")
+    # Grouping drops NaN keys by default; never silently omit a run, scenario
+    # or timestamp from the resulting alert feed.
+    if states[["run_id", "scenario", "hour"]].isna().any().any():
+        raise ValueError("alert stream keys and hours must not be missing")
+    hours = pd.to_numeric(states["hour"], errors="coerce")
+    if (hours.isna().any() or not hours.map(
+            lambda value: bool(pd.notna(value)) and float(value).is_integer()
+        ).all() or any(isinstance(value, bool) for value in states["hour"])):
+        raise ValueError("hours must be finite whole numbers")
 
     outputs: list[dict[str, object]] = []
 
@@ -77,6 +89,10 @@ def build_alert_feed(
     for level, entity_id, severity_col, regime_col, action_col in definitions:
         if not {entity_id, severity_col, regime_col, action_col}.issubset(states.columns):
             continue
+        if states[entity_id].isna().any():
+            raise ValueError(f"{level} alert entity ID must not be missing")
+        if not states[severity_col].isin(RANK).all():
+            raise ValueError(f"{level} alert has unknown severity")
 
         # Entity IDs can be reused between independent simulations. Persist and
         # detect escalations only within the same run and scenario.
@@ -94,7 +110,7 @@ def build_alert_feed(
 
             previous = "GREEN"
             for (_, row), current in zip(group.iterrows(), sequence):
-                if RANK.get(current, 0) > RANK.get(previous, 0):
+                if RANK[current] > RANK[previous]:
                     outputs.append(
                         {
                             "entity_level": level,

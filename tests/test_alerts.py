@@ -1,4 +1,7 @@
 import pandas as pd
+import pytest
+
+from aeris.alerts.generator import apply_persistence
 
 from aeris.alerts import build_alert_feed
 
@@ -81,3 +84,44 @@ def test_persistence_does_not_combine_short_runs_from_different_simulations():
     # contract; it must not be combined with the next simulation's RED.
     assert alerts["severity"].tolist() == ["WATCH", "WATCH"]
     assert set(alerts["run_id"]) == {0, 1}
+
+
+
+def _one_observation(**overrides):
+    row = {
+        "run_id": 0,
+        "scenario": "synthetic",
+        "hour": 0,
+        "animal_id": "A1",
+        "animal_severity": "RED",
+        "animal_regime": "collapse-risk",
+        "animal_action": "on_site_inspection",
+    }
+    row.update(overrides)
+    return pd.DataFrame([row])
+
+
+def test_unknown_severity_never_silently_downgrades_to_green():
+    for value in ("BLUE", "RED ", None, float("nan"), ""):
+        with pytest.raises(ValueError, match="unknown severity"):
+            build_alert_feed(_one_observation(animal_severity=value))
+        with pytest.raises(ValueError, match="unknown severity"):
+            apply_persistence(["GREEN", value])
+
+
+def test_missing_entity_and_stream_identity_is_rejected():
+    for field in ("run_id", "scenario", "hour", "animal_id"):
+        with pytest.raises(ValueError, match="must not be missing"):
+            build_alert_feed(_one_observation(**{field: None}))
+
+
+def test_fractional_or_non_numeric_hours_are_rejected_before_alert_generation():
+    for hour in (0.5, "unknown", float("nan"), float("inf"), True):
+        with pytest.raises(ValueError, match="hours|missing"):
+            build_alert_feed(_one_observation(hour=hour))
+
+
+def test_persistence_durations_are_strict_positive_integers():
+    for value in (0, -1, 1.5, True, "2", None):
+        with pytest.raises(ValueError, match="durations"):
+            apply_persistence(["GREEN", "RED"], min_red_duration=value)
