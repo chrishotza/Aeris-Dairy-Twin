@@ -30,3 +30,30 @@ def test_group_burden():
 
 def test_unit_burden():
     assert unit_burden(4, 3) == 10
+
+
+@pytest.mark.parametrize("counts", [(1.5, 0), (1, 0.5), (True, 1), (1, False), (-1, 0)])
+def test_burden_rejects_fractional_boolean_or_negative_counts(counts):
+    with pytest.raises(ValueError, match="non-negative integers"):
+        group_burden(*counts)
+    with pytest.raises(ValueError, match="non-negative integers"):
+        unit_burden(*counts)
+
+
+def test_invalid_calibration_thresholds_fail_closed():
+    for kw in (
+        {"transition_validity_threshold": float("nan")},
+        {"collapse_validity_threshold": float("inf")},
+        {"transition_validity_threshold": 0.8, "collapse_validity_threshold": 0.4},
+        {"transition_severity_threshold": 0.9, "collapse_severity_threshold": 0.4},
+        {"collapse_validity_threshold": -0.1},
+    ):
+        with pytest.raises(ValueError, match="threshold"):
+            classify_regime(0.6, 0.5, **kw)
+
+
+def test_overflowed_means_do_not_create_fake_valid_states():
+    with pytest.raises(ValueError, match="validity mean"):
+        structural_validity(1e308, 1e308, 1e308)
+    with pytest.raises(ValueError, match="severity mean"):
+        severity_score(1e308, 1e308, 1e308, 1e308)

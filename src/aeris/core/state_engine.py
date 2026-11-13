@@ -71,6 +71,8 @@ def structural_validity(
     _validate_finite(values)
 
     score = _mean(values)
+    if not isfinite(score):
+        raise ValueError("structural validity mean must be finite")
     return max(0.0, min(1.0, score))
 
 
@@ -98,8 +100,10 @@ def severity_score(
         float(heat_rise),
     )
     _validate_finite(values)
-
-    return _mean(values)
+    score = _mean(values)
+    if not isfinite(score):
+        raise ValueError("severity mean must be finite")
+    return score
 
 
 def classify_regime(
@@ -125,6 +129,16 @@ def classify_regime(
         raise ValueError("validity must be in [0, 1]")
     if not isfinite(severity):
         raise ValueError("severity must be finite")
+    limits = (
+        transition_validity_threshold, collapse_validity_threshold,
+        transition_severity_threshold, collapse_severity_threshold,
+    )
+    if any(not isfinite(float(value)) for value in limits):
+        raise ValueError("regime thresholds must be finite")
+    if not (0.0 <= transition_validity_threshold <= collapse_validity_threshold <= 1.0):
+        raise ValueError("validity thresholds must be ordered in [0, 1]")
+    if not (transition_severity_threshold <= collapse_severity_threshold):
+        raise ValueError("severity thresholds must be ordered")
 
     if (
         validity >= collapse_validity_threshold
@@ -150,10 +164,11 @@ def group_burden(
     B_group = n_transition + 2 * n_collapse
     """
 
-    if n_transition < 0 or n_collapse < 0:
-        raise ValueError("counts must be non-negative")
+    if (type(n_transition) is not int or type(n_collapse) is not int
+            or n_transition < 0 or n_collapse < 0):
+        raise ValueError("counts must be non-negative integers")
 
-    return int(n_transition) + 2 * int(n_collapse)
+    return n_transition + 2 * n_collapse
 
 
 def unit_burden(
@@ -165,10 +180,11 @@ def unit_burden(
     B_unit = groups_transition + 2 * groups_collapse
     """
 
-    if groups_transition < 0 or groups_collapse < 0:
-        raise ValueError("counts must be non-negative")
+    if (type(groups_transition) is not int or type(groups_collapse) is not int
+            or groups_transition < 0 or groups_collapse < 0):
+        raise ValueError("counts must be non-negative integers")
 
-    return int(groups_transition) + 2 * int(groups_collapse)
+    return groups_transition + 2 * groups_collapse
 
 
 def state_from_signals(
